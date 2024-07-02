@@ -1,0 +1,103 @@
+# Purrfect Pix Backend
+
+This is the backend for the Purrfect Pix application. The frontend for this application is available [here](https://github.com/NGFuture/2024_purrfect_pix_fe).
+
+This backend is built using Python Django and uses PostgreSQL for the database. Additionally, it uses an API key from [The Cat API](https://thecatapi.com/).
+
+## Installation Instructions
+
+### Prerequisites
+
+- Python 3.8 or later
+- PostgreSQL
+- Virtualenv (optional but recommended)
+
+### Steps
+
+1. **Clone the repository**
+
+    ```
+    git clone https://github.com/NGFuture/2024_purrfect_pix_be
+    cd 2024_purrfect_pix_be
+    ```
+
+2. **Create and activate a virtual environment (optional but recommended)**
+
+    ```
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    ```
+
+3. **Install the required packages**
+
+    ```
+    pip install -r requirements.txt
+    ```
+
+4. **Set up the PostgreSQL database**
+
+    - Create a new PostgreSQL database:
+
+      ```sql
+      CREATE DATABASE purrfect_pix_db;
+      ```
+
+    - Create a new PostgreSQL user and grant all privileges on the database:
+
+      ```sql
+      CREATE USER purrfect_pix WITH PASSWORD 'password';
+      GRANT ALL PRIVILEGES ON DATABASE purrfect_pix_db TO purrfect_pix;
+      ```
+
+5. **Configure the environment variables**
+
+    Create a `settings.py` file by using example `settings.example.py` and update following variables:
+
+    ```python
+    SECRET_KEY='your_secret_key_here'  # Replace with a long, randomly generated string.
+    ```
+    ```python
+    CAT_API_KEY='your_secret_key_here'  # Replace with a key obtained on https://thecatapi.com/.
+    ```
+
+    If your frontend makes requests to this backend and you need to allow cross-origin requests (CORS), adjust the allowed origins in your settings:
+    ```python
+    CORS_ALLOWED_ORIGINS = [
+        'http://localhost:3000',  # example: React development server
+        'https://example.com',    # example: Your production frontend URL
+    ]
+    ```
+    Replace `'http://localhost:3000'` and `'https://example.com'` with the actual origins (URLs) you want to allow. This step is necessary to ensure that your frontend can communicate with the backend API without CORS issues.
+
+6. **Apply the database migrations**
+
+    ```
+    python manage.py migrate
+    ```
+
+7. **Run the development server**
+
+    For the first time after the previous steps:
+
+    ```bash
+    python manage.py runserver
+    ```
+
+    For all subsequent starts after the project is installed:
+
+    ```bash
+    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    python manage.py runserver
+    ```
+
+
+The backend should now be running locally. You can access it at `http://127.0.0.1:8000/`.
+
+## Project Structure
+
+- `purrfect_pix/`: Contains the main project settings and configurations.
+- `cats/`: Contains the application logic for handling cat-related data.
+
+## API Key
+
+This project uses an API key from [The Cat API](https://thecatapi.com/). Ensure that you have a valid API key and configure it in your environment variables as shown above.

@@ -88,12 +88,14 @@ class CatsViewSet(viewsets.ViewSet):
         return Response(data, status=status.HTTP_200_OK)
     @action(
         detail=False,
-        methods=["get"],
+        methods=["post"],
         permission_classes=[AllowAny],
-        url_path="load-cats",
+        url_path="reset",
     )
     def load_initial_cats(self, request):
-        url = f"https://api.thecatapi.com/v1/images/search?limit=20&api_key={settings.CAT_API_KEY}"
+        Cat.objects.all().delete()
+        Breed.objects.all().delete()
+        url = f"https://api.thecatapi.com/v1/images/search?limit=100&api_key={settings.CAT_API_KEY}"
         response = requests.get(url)
         data = response.json()
         items = []
