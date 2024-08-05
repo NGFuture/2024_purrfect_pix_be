@@ -166,3 +166,27 @@ class CatsViewSet(viewsets.ViewSet):
             },
             status=status.HTTP_200_OK,
         )
+    @action(
+        detail=True,
+        methods=["put"],
+        permission_classes=[AllowAny],
+        url_path="update-cat",
+    )
+    def update_cat(self, request, pk):
+        data = request.data
+        cat = Cat.objects.get(pk=pk)
+        name = data.get("name", "")
+        description = data.get("description", "")
+        if name:
+            cat.name = name
+        if description:
+            cat.description = description
+        cat.save()
+        return Response(
+            {
+                "id": cat.id,
+                "name": cat.name,
+                "description": cat.description
+            },
+            status=status.HTTP_200_OK,
+       )
