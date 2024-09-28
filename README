@@ -4,7 +4,63 @@ This is the backend for the Purrfect Pix application. The frontend for this appl
 
 This backend is built using Python Django and uses PostgreSQL for the database. Additionally, it uses an API key from [The Cat API](https://thecatapi.com/).
 
-## Installation Instructions
+## Installation through Docker (recommended)
+
+### Prerequisites
+- Ensure Docker and Docker Compose are installed on your system.
+
+### Steps
+
+1. **Clone the repository**
+
+    ```bash
+    git clone https://github.com/NGFuture/2024_purrfect_pix_be
+    cd 2024_purrfect_pix_be
+    ```
+
+2. **Update the `.env` file**
+
+    Create a `.env` file by copying `sample.env` and updating the necessary values:
+
+    ```bash
+    cp sample.env .env
+    ```
+
+    - Set your `SECRET_KEY` and `CAT_API_KEY` as well as any database credentials.
+
+3. **Build and run the Docker containers**
+
+    To build and run the backend using Docker:
+
+    ```bash
+    docker-compose up --build -d
+    ```
+
+    This command will:
+    - Build the Docker images for the project.
+    - Start the PostgreSQL database and the Django backend in detached mode.
+
+4. **Apply the database migrations**
+
+    After the containers are running, apply the database migrations:
+
+    ```bash
+    docker-compose exec web python manage.py migrate
+    ```
+
+5. **Access the backend**
+
+    The backend should now be running at `http://localhost:8000/`.
+
+6. **Stopping the containers**
+
+    To stop the running containers, use the following command:
+
+    ```bash
+    docker-compose down
+    ```
+
+## Installation Instructions without Docker
 
 ### Prerequisites
 
@@ -51,7 +107,7 @@ This backend is built using Python Django and uses PostgreSQL for the database. 
 
 5. **Configure the environment variables**
 
-    Create a `settings.py` file by using example `settings.example.py` and update following variables:
+    Create a `.env` file by using example `sample.env` and update following variables:
 
     ```python
     SECRET_KEY='your_secret_key_here'  # Replace with a long, randomly generated string.
