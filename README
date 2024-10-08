@@ -28,7 +28,19 @@ This backend is built using Python Django and uses PostgreSQL for the database. 
 
     - Set your `SECRET_KEY` and `CAT_API_KEY` as well as any database credentials.
 
-3. **Build and run the Docker containers**
+3. **Database settings**
+
+    For local development, this is configured as part of docker-compose:
+        ports:
+        - "5432:5432"
+        environment:
+        POSTGRES_DB: purrfect_pix_db
+        POSTGRES_USER: purrfect_pix
+        POSTGRES_PASSWORD: password
+
+    However, for the production environment, it is not recommended to expose the port.
+
+4. **Build and run the Docker containers**
 
     To build and run the backend using Docker:
 
@@ -40,7 +52,7 @@ This backend is built using Python Django and uses PostgreSQL for the database. 
     - Build the Docker images for the project.
     - Start the PostgreSQL database and the Django backend in detached mode.
 
-4. **Apply the database migrations**
+5. **Apply the database migrations**
 
     After the containers are running, apply the database migrations:
 
@@ -48,11 +60,11 @@ This backend is built using Python Django and uses PostgreSQL for the database. 
     docker-compose exec web python manage.py migrate
     ```
 
-5. **Access the backend**
+6. **Access the backend**
 
     The backend should now be running at `http://localhost:8000/`.
 
-6. **Stopping the containers**
+7. **Stopping the containers**
 
     To stop the running containers, use the following command:
 
