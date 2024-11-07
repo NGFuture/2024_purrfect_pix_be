@@ -26,7 +26,10 @@ This backend is built using Python Django and uses PostgreSQL for the database. 
     cp sample.env .env
     ```
 
-    - Set your `SECRET_KEY` and `CAT_API_KEY` as well as any database credentials.
+    - Set your `SECRET_KEY`, `CAT_API_KEY`, and any necessary database credentials.
+        - `SECRET_KEY`: This can be any random string, as it's used within the Docker container for Django's internal functions.
+        - `CAT_API_KEY`: Obtain this by registering at [The Cat API](https://www.thecatapi.com/).
+    - Make sure to uncomment DB_HOST = "db"
 
 3. **Database settings**
 
@@ -64,13 +67,6 @@ This backend is built using Python Django and uses PostgreSQL for the database. 
 
     The backend should now be running at `http://localhost:8000/`.
 
-7. **Stopping the containers**
-
-    To stop the running containers, use the following command:
-
-    ```bash
-    docker-compose down
-    ```
 
 ## Installation Instructions without Docker
 
@@ -127,6 +123,7 @@ This backend is built using Python Django and uses PostgreSQL for the database. 
     ```python
     CAT_API_KEY='your_secret_key_here'  # Replace with a key obtained on https://thecatapi.com/.
     ```
+    Make sure to uncomment DB_HOST="localhost" by default.
 
     If your frontend makes requests to this backend and you need to allow cross-origin requests (CORS), adjust the allowed origins in your settings:
     ```python
